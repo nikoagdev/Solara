@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solara</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #fff;
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        .header .nav {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 100%;
+        }
+
+        .header .nav a {
+            margin-right: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #3498db;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: transparent;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .header .nav a:hover {
+            color: #fff;
+            background-color: #3498db;
+            border: 2px solid #3498db;
+        }
+
+        .header .nav a.btn-login {
+            background-color: #e74c3c;
+            color: #fff;
+            font-size: 16px;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-transform: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .header .nav a.btn-login:hover {
+            background-color: #c0392b;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            height: 100vh;
+            background-image: url('assets/img/dash-index.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner h1 {
+            font-size: 4rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: #3498db;
+            z-index: 2;
+        }
+
+        .hero-banner p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: #e74c3c;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+
+        .cta-buttons a {
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 10px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #3498db;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .cta-buttons a:hover {
+            background-color: #2980b9;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* Estilo do canvas para o gráfico animado */
+        .chart-canvas {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 200px;
+            z-index: 1;
+            opacity: 0.7;
+        }
+
+        /* Sobre Nós */
+        .sobre-nos {
+            padding: 80px 0;
+            background-color: #ecf0f1;
+            text-align: center;
+        }
+
+        .sobre-nos h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+
+        .sobre-nos p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Funcionalidades */
+        .features {
+            padding: 80px 0;
+            background-color: #fff;
+            text-align: center;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .feature-item {
+            background-color: #f7f7f7;
+            padding: 40px;
+            border-radius: 8px;
+            margin: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 300px;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-item h3 {
+            margin-top: 10px;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #3498db;
+        }
+
+        .feature-item i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #23588d;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <nav class="nav">
+            <a href="#sobre-nos">Sobre Nós</a>
+            <a href="#funcionalidades">Funcionalidades</a>
+            <a href="/src/pages/login.html" class="btn-login">Login</a>
+        </nav>
+    </div>
+</header>
+
+<section class="hero-banner">
+    <canvas class="chart-canvas" id="lineChart"></canvas>
+    <div class="hero-content">
+        <h1>Assuma o controle de seu desempenho</h1>
+        <p>Monitore suas métricas, otimize seu tempo e alcance melhores resultados com o acompanhamento diário</p>
+        <div class="cta-buttons">
+            <a href="login.html">Comece Agora</a>
+            <a href="funcionalidades.html">Saiba Mais</a>
+        </div>
+    </div>
+</section>
+
+<section class="sobre-nos" id="sobre-nos">
+    <div class="container">
+        <h2>Sobre Nós</h2>
+        <p>Solara é um sistema inovador para o acompanhamento de médias de atendimentos e auxílio no processo acadêmico. Nossa missão é fornecer ferramentas eficientes para melhorar a qualidade e a produtividade do atendimento acadêmico.</p>
+    </div>
+</section>
+
+<section class="features" id="funcionalidades">
+    <div class="container">
+        <h2>Funcionalidades</h2>
+        <div class="feature-list">
+            <div class="feature-item">
+                <i class="fas fa-chart-line"></i>
+                <h3>Acompanhamento de Média</h3>
+                <p>Descubra qual sua média em tempo real.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <h3>Relatórios de Feedbacks</h3>
+                <p>Receba Feedbacks detalhados de seus gestores.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-user-friends"></i>
+                <h3>Interface Intuitiva</h3>
+                <p>Navegação simples e rápida para facilitar o seu dia a dia.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <p class="footer-text">© 2025 CRA. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+    // Animação do gráfico de linha
+    const canvas = document.getElementById('lineChart');
+    const ctx = canvas.getContext('2d');
+
+    // Ajusta o tamanho do canvas
+    canvas.width = 250;
+    canvas.height = 200;
+
+    let progress = 0;
+    const points = [
+        { x: 20, y: 180 },
+        { x: 60, y: 170 },
+        { x: 100, y: 140 },
+        { x: 140, y: 110 },
+        { x: 180, y: 70 },
+        { x: 220, y: 30 }
+    ];
+    const animationDuration = 2000; // Duração de 2 segundos por ciclo
+
+    function drawGrid() {
+        ctx.beginPath();
+        ctx.strokeStyle = '#e0e0e0';
+        ctx.lineWidth = 0.5;
+        for (let i = 0; i <= canvas.height; i += 30) {
+            ctx.moveTo(0, i);
+            ctx.lineTo(canvas.width, i);
+        }
+        for (let i = 0; i <= canvas.width; i += 30) {
+            ctx.moveTo(i, 0);
+            ctx.lineTo(i, canvas.height);
+        }
+        ctx.stroke();
+    }
+
+    function drawAxes() {
+        ctx.beginPath();
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 1;
+        ctx.moveTo(20, 20);
+        ctx.lineTo(20, 190);
+        ctx.lineTo(230, 190);
+        ctx.stroke();
+
+        // Rótulos simples
+        ctx.fillStyle = '#333';
+        ctx.font = '10px Arial';
+        ctx.fillText('CRA', 110, 200);
+    }
+
+    function drawArrow(x, y) {
+        ctx.beginPath();
+        ctx.fillStyle = '#27ae60';
+        ctx.moveTo(x - 5, y - 10);
+        ctx.lineTo(x + 5, y - 10);
+        ctx.lineTo(x, y);
+        ctx.fill();
+    }
+
+    function drawLine() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Desenha a grade
+        drawGrid();
+
+        // Desenha os eixos
+        drawAxes();
+
+        // Desenha a linha
+        ctx.beginPath();
+        ctx.strokeStyle = '#27ae60';
+        ctx.lineWidth = 2;
+        ctx.lineJoin = 'round';
+
+        const totalPoints = points.length;
+        for (let i = 0; i < totalPoints; i++) {
+            const t = Math.min(progress - (i / totalPoints), 1);
+            if (t < 0) continue;
+
+            const x = points[i].x;
+            const y = points[i].y - (t * (points[i].y - 30)); // Subindo até y=30
+
+            if (i === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
+            }
+
+            if (i === totalPoints - 1 && t >= 1) {
+                drawArrow(x, y);
+            }
+        }
+        ctx.stroke();
+    }
+
+    function animate() {
+        progress += 1 / (animationDuration / 16); // Incrementa com base em 60fps (~16ms por frame)
+        if (progress > 1.5) { // 1.5 para completar a animação antes de reiniciar
+            progress = 0;
+        }
+
+        drawLine();
+        requestAnimationFrame(animate);
+    }
+
+    // Inicia a animação
+    animate();
+</script>
+
+</body>
+</html>

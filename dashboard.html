@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Solara</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/dashboard.css">
+
+    <style>
+        /* Estilos do banner */
+        .banner-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px; /* Limita a largura máxima */
+            margin: 0 auto;
+            overflow: hidden;
+            height: 400px; /* Altura fixa para o banner */
+        }
+
+        .banner {
+            display: flex;
+            width: calc(100% * 5); /* Ajusta para o número de imagens */
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Garante que a imagem preencha sem distorção */
+            flex-shrink: 0;
+        }
+
+        .banner-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .banner-control-prev,
+        .banner-control-next {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            font-size: 1.5rem;
+        }
+
+        .banner-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            margin: 0 5px;
+            background-color: gray;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .indicator.active {
+            background-color: white;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .banner-container {
+                height: 250px; /* Reduz altura em telas menores */
+            }
+        }
+
+        /* Estilo do painel admin */
+        #panelAdmin {
+            display: none; /* Escondido inicialmente */
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container d-flex justify-content-between align-items-center">
+        <h1>Bem-vindo(a), <span id="username">Usuário</span>!</h1>
+        <nav class="nav">
+            <a href="/logout" class="btn btn-outline-light">Sair</a>
+            <a href="/pages/notificacoes.html" class="btn btn-outline-light">
+                <i class="fas fa-bell"></i>
+            </a>
+        </nav>
+    </div>
+</header>
+
+<!-- Banner de Avisos -->
+<div class="banner-container">
+    <div class="banner">
+        <img src="assets/img/1.png" alt="Aviso 1">
+        <img src="assets/img/2.png" alt="Aviso 2">
+        <img src="assets/img/3.png" alt="Aviso 3">
+        <img src="assets/img/4.png" alt="Aviso 4">
+        <img src="assets/img/5.png" alt="Aviso 5">
+    </div>
+    <div class="banner-controls">
+        <button class="banner-control-prev">❮</button>
+        <button class="banner-control-next">❯</button>
+    </div>
+    <div class="banner-indicators">
+        <div class="indicator active" data-index="0"></div>
+        <div class="indicator" data-index="1"></div>
+        <div class="indicator" data-index="2"></div>
+        <div class="indicator" data-index="3"></div>
+        <div class="indicator" data-index="4"></div>
+    </div>
+</div>
+
+<!-- Painel Administrativo (visível apenas para admins) -->
+<section id="panelAdmin" class="dashboard-summary" style="display: none;">
+    <h2 class="text-center my-4">PAINEL ADM</h2>
+    <div class="container d-flex justify-content-center flex-wrap">
+        <div class="card-dashboard text-center">
+            <i class="fas fa-clock"></i>
+            <h3>Aprovar Solicitação de Pausa</h3>
+            <a href="/pages/Aprovar_Horario_Admin.html" class="cta-button">Aprovar Solicitação</a>
+        </div>
+    </div>
+</section>
+
+<!-- Painel Normal -->
+<section id="panelNormal" class="dashboard-summary">
+    <h2 class="text-center my-4">ENVIO DE E-MAIL</h2>
+    <div class="container d-flex justify-content-between flex-wrap">
+        <div class="card-dashboard text-center">
+            <i class="fas fa-users"></i>
+            <h3>Envio de E-mail</h3>
+            <a href="/pages/emails/disparo-cra/envio-email.html" class="cta-button">Envio de E-mail</a>
+        </div>
+
+        <div class="card-dashboard text-center">
+            <i class="fas fa-calendar-check"></i>
+            <h3>Agendar Troca de Horário</h3>
+            <a href="/pages/TrocaHorario.html" class="cta-button">Agendar</a>
+        </div>
+
+        <div class="card-dashboard text-center">
+            <i class="fas fa-clipboard-list"></i>
+            <h3>Scripts e Procedimentos Padrões</h3>
+            <a href="/pages/scripts.html" class="cta-button">Acessar</a>
+        </div>
+
+        <div class="card-dashboard text-center">
+            <i class="fas fa-clock"></i>
+            <h3>Escala de Pausa</h3>
+            <a href="/pages/escala_pausa.html" class="cta-button">Ver Escala</a>
+        </div>
+
+        <div class="card-dashboard text-center">
+            <i class="fas fa-calendar-alt"></i>
+            <h3>Escala de Trabalho Feriado</h3>
+            <a href="/pages/escala_feriado.html" class="cta-button">Ver Escala</a>
+        </div>
+
+        <div class="card-dashboard text-center">
+            <i class="fas fa-chart-bar"></i>
+            <h3>Relatórios</h3>
+            <a href="/pages/relatorios.html" class="cta-button">Visualizar Relatórios</a>
+        </div>
+
+        <div class="card-dashboard text-center">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <h3>Suas Monitorias</h3>
+            <a href="/pages/monitorias.html" class="cta-button">Ver Monitorias</a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>© 2025 Solara - CRA EAD. Todos os direitos reservados.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        try {
+            const responseUser = await fetch('/user_info');
+            const userData = await responseUser.json();
+
+            // Atualiza o nome do usuário
+            if (userData.name) {
+                document.getElementById('username').textContent = userData.name;
+            } else {
+                console.error('Nome do usuário não encontrado.');
+            }
+
+            // Exibe o painel admin se o usuário for admin
+            const panelAdmin = document.getElementById('panelAdmin');
+            if (userData.role === 'admin') {
+                panelAdmin.style.display = 'block';
+            } else {
+                panelAdmin.style.display = 'none';
+            }
+        } catch (error) {
+            console.error('Erro ao carregar os dados do usuário:', error);
+        }
+    });
+
+    // Código do carrossel
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.banner img');
+    const indicators = document.querySelectorAll('.indicator');
+    const banner = document.querySelector('.banner');
+    const prevButton = document.querySelector('.banner-control-prev');
+    const nextButton = document.querySelector('.banner-control-next');
+    const totalImages = images.length;
+
+    function updateBanner() {
+        // Ajusta a transformação para exibir a imagem atual
+        banner.style.transform = `translateX(-${(currentIndex * 100) / totalImages}%)`;
+        // Atualiza indicadores
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === currentIndex);
+        });
+    }
+
+    function nextImage() {
+        currentIndex = (currentIndex + 1) % totalImages;
+        updateBanner();
+    }
+
+    function prevImage() {
+        currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+        updateBanner();
+    }
+
+    // Eventos de clique nos indicadores
+    indicators.forEach(indicator => {
+        indicator.addEventListener('click', () => {
+            currentIndex = parseInt(indicator.getAttribute('data-index'));
+            updateBanner();
+        });
+    });
+
+    // Eventos de clique nos botões
+    nextButton.addEventListener('click', nextImage);
+    prevButton.addEventListener('click', prevImage);
+
+    // Transição automática
+    setInterval(nextImage, 4000);
+
+    // Inicializa o banner
+    updateBanner();
+</script>
+
+</body>
+</html>

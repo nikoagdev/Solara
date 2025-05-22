@@ -1,0 +1,11 @@
+INSTALAR NODE.JS
+
+ABRIR A PASTA DO PROJETO E EXECUTAR NO CMD DA IDLE 
+npm init -y
+npm install express body-parser fs bcrypt
+npm install express-session
+npm install xlsx
+npm install bcryptjs
+npm install cors
+npm install nodemailer
+node server/server.js
